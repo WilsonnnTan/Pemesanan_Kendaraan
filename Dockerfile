@@ -36,3 +36,19 @@ RUN composer install --no-interaction --no-dev --optimize-autoloader
 
 # Berikan permission yang sesuai
 RUN chown -R www-data:www-data /var/www/html && chmod -R 755 /var/www/html
+
+# Set environment variables
+ENV CI_ENVIRONMENT=production
+ENV app.baseURL=${APP_URL}
+ENV database.default.hostname=${DB_HOST}
+ENV database.default.database=${DB_NAME}
+ENV database.default.username=${DB_USER}
+ENV database.default.password=${DB_PASSWORD}
+ENV database.default.DBDriver=MySQLi
+ENV database.default.port=${DB_PORT}
+
+# Expose port 80
+EXPOSE 80
+
+# Start Apache
+CMD ["apache2-foreground"]
