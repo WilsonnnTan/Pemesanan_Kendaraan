@@ -34,21 +34,21 @@ WORKDIR /var/www/html
 # Install dependencies via Composer
 RUN composer install --no-interaction --no-dev --optimize-autoloader
 
-# Berikan permission yang sesuai
+# Buat isi .env secara langsung dari variabel lingkungan
+RUN echo "CI_ENVIRONMENT = production" >> .env && \
+    echo "app.baseURL = \"\${APP_URL}\"" >> .env && \
+    echo "database.default.hostname = \${DB_HOST}" >> .env && \
+    echo "database.default.database = \${DB_NAME}" >> .env && \
+    echo "database.default.username = \${DB_USER}" >> .env && \
+    echo "database.default.password = \${DB_PASSWORD}" >> .env && \
+    echo "database.default.DBDriver = MySQLi" >> .env && \
+    echo "database.default.port = \${DB_PORT}" >> .env
+
+# Berikan permission
 RUN chown -R www-data:www-data /var/www/html && chmod -R 755 /var/www/html
 
-# Set environment variables
-ENV CI_ENVIRONMENT=production
-ENV app.baseURL=${APP_URL}
-ENV database.default.hostname=${DB_HOST}
-ENV database.default.database=${DB_NAME}
-ENV database.default.username=${DB_USER}
-ENV database.default.password=${DB_PASSWORD}
-ENV database.default.DBDriver=MySQLi
-ENV database.default.port=${DB_PORT}
-
-# Expose port 80
+# Expose port
 EXPOSE 80
 
-# Start Apache
+# Jalankan Apache
 CMD ["apache2-foreground"]
