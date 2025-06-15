@@ -10,40 +10,9 @@ Sistem manajemen kendaraan untuk mengelola penggunaan kendaraan perusahaan denga
 - **Web Server**: Apache
 - **Container**: Docker
 
-## Deployment di Railway
-
 ### Prasyarat
 - Akun Railway
 - Database MySQL dari Railway
-
-### Langkah Deployment
-
-1. Clone repository
-```bash
-git clone [repository-url]
-cd [repository-name]
-```
-
-2. Buat project baru di Railway
-   - Pilih "Deploy from GitHub repo"
-   - Pilih repository Anda
-   - Railway akan otomatis mendeteksi Dockerfile
-
-3. Atur Environment Variables di Railway
-```
-CI_ENVIRONMENT=production
-APP_URL=https://[your-railway-app-url]
-DB_HOST=[railway-db-host]
-DB_NAME=[railway-db-name]
-DB_USER=[railway-db-user]
-DB_PASSWORD=[railway-db-password]
-```
-
-4. Railway akan otomatis:
-   - Build image menggunakan Dockerfile
-   - Deploy aplikasi
-   - Menjalankan container
-
 
 ### Catatan Penting
 - Pastikan semua environment variables sudah diatur di Railway
